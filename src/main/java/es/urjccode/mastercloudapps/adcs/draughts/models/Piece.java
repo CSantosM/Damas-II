@@ -11,7 +11,7 @@ public class Piece {
 		this.color = color;
 	}
 
-	Error isCorrect(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
+	Error canMove(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
 		if (!origin.isDiagonal(target)) {
 			return Error.NOT_DIAGONAL;
 		}

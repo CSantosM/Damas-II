@@ -58,7 +58,7 @@ public class Game {
 		if (this.turn.getColor() != this.board.getColor(origin)) {
 			return Error.OPPOSITE_PIECE;
 		}
-		return this.board.getPiece(origin).isCorrect(origin, target, board);
+		return this.board.getPiece(origin).canMove(origin, target, board);
 	}
 
 	public Color getColor(Coordinate coordinate) {
