@@ -43,7 +43,7 @@ public class Game {
 
 	public void move(Coordinate origin, Coordinate target) {
 		assert this.isCorrect(origin, target) == null;
-		if (origin.diagonalDistance(target) == 2) {
+		if (origin.diagonalDistance(target) == this.board.getPiece(origin).getMaxDistance()) {
 			this.board.remove(origin.betweenDiagonal(target));
 		}
 		this.board.move(origin, target);

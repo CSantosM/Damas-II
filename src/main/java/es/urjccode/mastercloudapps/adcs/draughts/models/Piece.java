@@ -1,6 +1,6 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-public class Piece {
+public abstract class Piece {
 
 	private Color color;
 
@@ -37,5 +37,7 @@ public class Piece {
 	Color getColor() {
 		return this.color;
 	}
+
+	abstract int getMaxDistance();
 
 }
