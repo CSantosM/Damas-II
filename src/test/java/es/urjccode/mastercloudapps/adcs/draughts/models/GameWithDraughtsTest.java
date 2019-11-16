@@ -48,21 +48,4 @@ public class GameWithDraughtsTest {
         verify(board).put(any(Coordinate.class), any(Draught.class));
     }
 
-    @Test
-    public void testGivenGameWhenPawnAtLimitAndEatingThenNewDraugts(){
-        Coordinate origin = new Coordinate(2,1);
-        Coordinate target = new Coordinate(0,3);
-        when (turn.getColor()).thenReturn(Color.WHITE);
-        when(board.isEmpty(origin)).thenReturn(false);
-        when(board.getColor(origin)).thenReturn(Color.WHITE);
-        when(board.getPiece(origin)).thenReturn(piece);
-        when(piece.canMove(origin, target, board)).thenReturn(null);
-        when(board.remove(origin)).thenReturn(new Pawn(Color.WHITE));
-        when(board.getPiece(target)).thenReturn(new Pawn(Color.WHITE));
-        game.move(origin, target);
-        verify(board).remove(origin.betweenDiagonal(target));
-        verify(board).remove(target);
-        verify(board).put(any(Coordinate.class), any(Draught.class));
-    }
-
 }

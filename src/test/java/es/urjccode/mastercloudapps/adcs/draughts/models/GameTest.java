@@ -159,4 +159,27 @@ public class GameTest {
         assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
     }
 
+
+    @Test
+    public void testGivenGameWhenPawnAtLimitAndEatingThenNewDraugts(){
+        Coordinate origin = new Coordinate(2,1);
+        Coordinate target = new Coordinate(0,3);
+
+        Game game = new GameBuilder(Color.WHITE)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("  n     ")
+        /*2*/.row(" b      ")
+        /*3*/.row("        ")
+        /*4*/.row("        ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+
+        game.move(origin, target);
+        assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
+    }
+
+
 }
