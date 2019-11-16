@@ -8,6 +8,10 @@ class Turn {
         this.color = Color.WHITE;
     }
 
+    Turn(Color color){
+      this.color = color;
+    }
+
     void change(){
         this.color = Color.values()[(this.color.ordinal()+1)%2];
     }
@@ -15,11 +19,11 @@ class Turn {
     boolean isColor(Color color2) {
 		return false;
     }
-    
+
     Color getColor() {
 		return this.color;
     }
-    
+
     @Override
     public String toString(){
         return this.color.name();
