@@ -2,8 +2,6 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 public class Piece {
 
-	private static final int MAX_DISTANCE = 2;
-
 	private Color color;
 
 	Piece(Color color) {
@@ -17,18 +15,6 @@ public class Piece {
 		}
 		if (!pieceProvider.isEmpty(target)) {
 			return Error.NOT_EMPTY_TARGET;
-		}
-		if (!this.isAdvanced(origin, target)) {
-			return Error.NOT_ADVANCED;
-		}
-		int distance = origin.diagonalDistance(target);
-		if (distance > Piece.MAX_DISTANCE) {
-			return Error.BAD_DISTANCE;
-		}
-		if (distance == Piece.MAX_DISTANCE) {
-			if (pieceProvider.getPiece(origin.betweenDiagonal(target)) == null) {
-				return Error.EATING_EMPTY;
-			}
 		}
 		return null;
 	}

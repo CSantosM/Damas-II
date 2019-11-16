@@ -6,4 +6,9 @@ class Draught extends Piece {
         super(color);
     }
 
+    @Override
+    Error canMove(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
+        return null;
+    }
+
 }
