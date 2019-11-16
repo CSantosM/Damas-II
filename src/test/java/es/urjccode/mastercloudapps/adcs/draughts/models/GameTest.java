@@ -181,5 +181,26 @@ public class GameTest {
         assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
     }
 
+    @Test
+    public void testGivenGameWhenWhitePawnAtLimitThenNewDraugts(){
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+
+        Game game = new GameBuilder(Color.WHITE)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("b       ")
+        /*2*/.row("        ")
+        /*3*/.row("        ")
+        /*4*/.row("        ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+
+        game.move(origin, target);
+        assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
+    }
+
 
 }
