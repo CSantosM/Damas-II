@@ -62,37 +62,37 @@ public class GameTest {
     @Test
     public void testGivenGameWhenMoveEmptySquaerThenEmptySquareError() {
         assertEquals(Error.EMPTY_ORIGIN,
-                this.advance(new Coordinate[][] { 
+                this.advance(new Coordinate[][] {
                     { new Coordinate(4, 3), new Coordinate(3, 4), }, }));
     }
 
     @Test
     public void testGivenGameWhenMoveOppositePieceThenError() {
         assertEquals(Error.OPPOSITE_PIECE,
-                this.advance(new Coordinate[][] { 
+                this.advance(new Coordinate[][] {
                     { new Coordinate(2, 1), new Coordinate(3, 0) }, }));
     }
 
     @Test
     public void testGivenGameWhenNotDiagonalMovementThenError() {
         assertEquals(Error.NOT_DIAGONAL,
-                this.advance(new Coordinate[][] { 
+                this.advance(new Coordinate[][] {
                     { new Coordinate(5, 2), new Coordinate(4, 2) }, }));
     }
 
     @Test
     public void testGivenGameWhenMoveWithNotAdvancedThenError() {
         assertEquals(Error.NOT_ADVANCED,
-                this.advance(new Coordinate[][] { 
+                this.advance(new Coordinate[][] {
                     { new Coordinate(5, 6), new Coordinate(4, 7) },
-                    { new Coordinate(2, 7), new Coordinate(3, 6) }, 
+                    { new Coordinate(2, 7), new Coordinate(3, 6) },
                     { new Coordinate(4, 7), new Coordinate(5, 6) }, }));
     }
 
     @Test
     public void testGivenGameWhenNotEmptyTargeThenError() {
         assertEquals(Error.NOT_EMPTY_TARGET,
-            this.advance(new Coordinate[][] { 
+            this.advance(new Coordinate[][] {
                 { new Coordinate(5, 6), new Coordinate(4, 7) },
                 { new Coordinate(2, 7), new Coordinate(3, 6) },
                 { new Coordinate(4, 7), new Coordinate(3, 6) }, }));
@@ -114,9 +114,9 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenMovementThenEatPiece() {
-        assertNull(this.advance(new Coordinate[][] { 
+        assertNull(this.advance(new Coordinate[][] {
             { new Coordinate(5, 0), new Coordinate(4, 1) },
-            { new Coordinate(2, 1), new Coordinate(3, 0) }, 
+            { new Coordinate(2, 1), new Coordinate(3, 0) },
             { new Coordinate(5, 2), new Coordinate(4, 3) },
             { new Coordinate(3, 0), new Coordinate(5, 2) }, }));
         assertNull(game.getColor(new Coordinate(3, 0)));
@@ -127,14 +127,14 @@ public class GameTest {
     @Test
     public void testGivenGameWhenEatEmptyPieceThenError() {
         assertEquals(Error.EATING_EMPTY,
-            this.advance(new Coordinate[][] { 
+            this.advance(new Coordinate[][] {
                 { new Coordinate(5, 4), new Coordinate(3, 2) }, }));
     }
 
     @Test
     public void testGivenGameWhenMoveBadDistanceThenError() {
         assertEquals(Error.BAD_DISTANCE,
-                this.advance(new Coordinate[][] { 
+                this.advance(new Coordinate[][] {
                     { new Coordinate(5, 6), new Coordinate(4, 7) },
                     { new Coordinate(2, 3), new Coordinate(3, 2) },
                     { new Coordinate(5, 0), new Coordinate(2, 3) }, }));
@@ -222,4 +222,30 @@ public class GameTest {
         assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
         assertThat(game.isCorrect(origin, target), is(Error.NOT_DIAGONAL));;
     }
+
+    @Test
+    public void testGivenGameWhenWhiteDraughtMovesThenOk(){
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(6,5);
+
+        Game game = new GameBuilder(Color.WHITE)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("B       ")
+        /*2*/.row("        ")
+        /*3*/.row("        ")
+        /*4*/.row("        ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+
+        assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
+        assertThat(game.isCorrect(origin, target), is(nullValue()));
+        game.move(origin, target);
+        assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
+        assertThat(game.getColor(), is(Color.BLACK));
+    }
+
+
 }
