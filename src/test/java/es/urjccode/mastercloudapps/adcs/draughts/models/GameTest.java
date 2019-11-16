@@ -220,7 +220,7 @@ public class GameTest {
             .build();
 
         assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
-        assertThat(game.isCorrect(origin, target), is(Error.NOT_DIAGONAL));;
+        assertThat(game.isCorrect(origin, target), is(Error.NOT_DIAGONAL));
     }
 
     @Test
@@ -245,6 +245,30 @@ public class GameTest {
         game.move(origin, target);
         assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
         assertThat(game.getColor(), is(Color.BLACK));
+    }
+
+    @Test
+    public void testGivenGameWhenDraughtMovesToBackThenOk(){
+        Coordinate origin = new Coordinate(2,7);
+        Coordinate target = new Coordinate(0,5);
+
+        Game game = new GameBuilder(Color.BLACK)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("        ")
+        /*2*/.row("       N")
+        /*3*/.row("        ")
+        /*4*/.row("        ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+
+        assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
+        assertThat(game.isCorrect(origin, target), is(nullValue()));
+        game.move(origin, target);
+        assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
+        assertThat(game.getColor(), is(Color.WHITE));
     }
 
 
