@@ -202,5 +202,24 @@ public class GameTest {
         assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
     }
 
+    @Test
+    public void testGivenGameWhenWhiteDraughtMovesThenError(){
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(1,7);
 
+        Game game = new GameBuilder(Color.WHITE)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("B       ")
+        /*2*/.row("        ")
+        /*3*/.row("        ")
+        /*4*/.row("        ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+
+        assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
+        assertThat(game.isCorrect(origin, target), is(Error.NOT_DIAGONAL));;
+    }
 }
