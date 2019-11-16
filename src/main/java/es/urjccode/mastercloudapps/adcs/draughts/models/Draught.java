@@ -8,6 +8,9 @@ class Draught extends Piece {
 
     @Override
     Error canMove(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
+         if (super.canMove(origin, target, pieceProvider) != null) {
+            return super.canMove(origin, target, pieceProvider);
+        }
         return null;
     }
 
