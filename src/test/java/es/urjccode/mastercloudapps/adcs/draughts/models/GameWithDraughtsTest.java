@@ -65,19 +65,4 @@ public class GameWithDraughtsTest {
         verify(board).put(any(Coordinate.class), any(Draught.class));
     }
 
-    @Test
-    public void testGivenGameWhenBlackPawnAtLimitThenNewDraugts(){
-        Coordinate origin = new Coordinate(6,3);
-        Coordinate target = new Coordinate(7,2);
-        when (turn.getColor()).thenReturn(Color.BLACK);
-        when(board.isEmpty(origin)).thenReturn(false);
-        when(board.getColor(origin)).thenReturn(Color.BLACK);
-        when(board.getPiece(origin)).thenReturn(piece);
-        when(piece.canMove(origin, target, board)).thenReturn(null);
-        when(board.remove(origin)).thenReturn(new Pawn(Color.BLACK));
-        when(board.getPiece(target)).thenReturn(new Pawn(Color.BLACK));
-        game.move(origin, target);
-        verify(board).remove(target);
-        verify(board).put(any(Coordinate.class), any(Draught.class));
-    }
 }

@@ -1,7 +1,12 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
 public class GameTest {
@@ -133,6 +138,25 @@ public class GameTest {
                     { new Coordinate(5, 6), new Coordinate(4, 7) },
                     { new Coordinate(2, 3), new Coordinate(3, 2) },
                     { new Coordinate(5, 0), new Coordinate(2, 3) }, }));
+    }
+
+    @Test
+    public void testGivenGameWhenBlackPawnAtLimitThenNewDraugtsWithBuilder(){
+        Coordinate origin = new Coordinate(6,3);
+        Coordinate target = new Coordinate(7,2);
+        Game game = new GameBuilder(Color.BLACK)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("        ")
+        /*2*/.row("        ")
+        /*3*/.row("        ")
+        /*4*/.row("        ")
+        /*5*/.row("        ")
+        /*6*/.row("   n    ")
+        /*7*/.row("        ")
+            .build();
+        game.move(origin, target);
+        assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
     }
 
 }
