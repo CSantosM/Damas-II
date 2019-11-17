@@ -21,7 +21,7 @@ public class Pawn extends Piece {
             return Error.BAD_DISTANCE;
         }
         if (distance == Pawn.MAX_DISTANCE) {
-            if (pieceProvider.getPiece(origin.betweenDiagonal(target)) == null) {
+            if (pieceProvider.getPiece(origin.getCoordinatesBetween(target).get(0)) == null) {
                 return Error.EATING_EMPTY;
             }
         }

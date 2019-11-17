@@ -63,7 +63,7 @@ public class Coordinate {
         return adjacentCoords;
     }
 
-    Coordinate betweenDiagonal(Coordinate coordinate) {
+    private Coordinate betweenDiagonal(Coordinate coordinate) {
         assert coordinate != null;
         assert this.diagonalDistance(coordinate) == 2;
         int rowShift = 1;
