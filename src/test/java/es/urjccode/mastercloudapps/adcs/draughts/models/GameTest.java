@@ -5,7 +5,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -269,6 +268,47 @@ public class GameTest {
         game.move(origin, target);
         assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
         assertThat(game.getColor(), is(Color.WHITE));
+    }
+
+    @Test
+    public void testGivenGameWhenMovementEatLastPieceThenWinner() {
+        Coordinate origin = new Coordinate(4,3);
+        Coordinate target = new Coordinate(2,1);
+
+        Game game = new GameBuilder(Color.WHITE)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("        ")
+        /*2*/.row("        ")
+        /*3*/.row("  n     ")
+        /*4*/.row("   b    ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+        game.move(origin, target);
+        assertThat(game.isBlocked(), is(true));
+    }
+
+    @Test
+    public void testGivenGameWhenMovementBlockToOtherThenOk() {
+        Coordinate origin = new Coordinate(4,1);
+        Coordinate target = new Coordinate(3,2);
+
+        Game game = new GameBuilder(Color.WHITE)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("n       ")
+        /*2*/.row(" b      ")
+        /*3*/.row("        ")
+        /*4*/.row(" b      ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+
+        game.move(origin, target);
+        assertThat(game.isBlocked(), is(true));
     }
 
 
