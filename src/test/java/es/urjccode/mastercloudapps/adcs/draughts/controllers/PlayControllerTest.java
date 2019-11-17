@@ -50,5 +50,26 @@ public class PlayControllerTest {
         assertThat(playController.isBlocked(), is(true));
     }
 
+    @Test
+    public void testGivenGameWhenMovementBlockToOtherThenOk() {
+        Coordinate origin = new Coordinate(4,1);
+        Coordinate target = new Coordinate(3,2);
+        State state = new State();
+        Game game = new GameBuilder(Color.WHITE)
+                // 01234567
+        /*0*/.row("        ")
+        /*1*/.row("n       ")
+        /*2*/.row(" b      ")
+        /*3*/.row("        ")
+        /*4*/.row(" b      ")
+        /*5*/.row("        ")
+        /*6*/.row("        ")
+        /*7*/.row("        ")
+            .build();
+        PlayController playController = new PlayController(game, state);
+        playController.move(origin, target);
+        assertThat(playController.isBlocked(), is(true));
+    }
+
 
 }
