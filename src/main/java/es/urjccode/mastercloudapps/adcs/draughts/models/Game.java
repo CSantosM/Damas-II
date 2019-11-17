@@ -42,7 +42,7 @@ public class Game {
 	}
 
 	public void move(Coordinate origin, Coordinate target) {
-		assert this.isCorrect(origin, target) == null;
+		assert this.isMovementValid(origin, target) == null;
 		this.removePieceOnWay(origin, target);
 		this.board.move(origin, target);
 		Piece piece = this.board.getPiece(target);
@@ -53,7 +53,7 @@ public class Game {
 		this.turn.change();
 	}
 
-	public Error isCorrect(Coordinate origin, Coordinate target){
+	public Error isMovementValid(Coordinate origin, Coordinate target){
 		assert origin != null;
 		assert target != null;
 		if (board.isEmpty(origin)) {
@@ -86,7 +86,7 @@ public class Game {
 		for (Piece piece : this.board.getPieces(this.turn.getColor())) {
 			Coordinate pieceCoordinate = this.board.getCoordinate(piece);
 			for (Coordinate adjCoordinate : pieceCoordinate.getAdjacents()) {
-				if(this.isCorrect(pieceCoordinate, adjCoordinate) == null){
+				if(this.isMovementValid(pieceCoordinate, adjCoordinate) == null){
 					System.out.println(adjCoordinate);
 					return true;
 				}

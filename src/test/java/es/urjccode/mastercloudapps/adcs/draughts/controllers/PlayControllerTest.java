@@ -20,7 +20,7 @@ public class PlayControllerTest {
         PlayController playController = new PlayController(game, state);
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(4, 1);
-        assertNull(playController.isCorrect(origin, target));
+        assertNull(playController.isMovementValid(origin, target));
         playController.move(origin, target);
         assertNull(playController.getPiece(origin));
         assertEquals(playController.getColor(target), Color.WHITE);

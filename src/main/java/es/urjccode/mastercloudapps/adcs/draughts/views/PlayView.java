@@ -31,10 +31,10 @@ class PlayView extends SubView {
                 target = Coordinate.getInstance(format.substring(3, 5));
                 if (origin == null || target == null) {
                     error = Error.BAD_FORMAT;
-                } 
+                }
             }
         } while (error != null);
-        error = playController.isCorrect(origin, target);
+        error = playController.isMovementValid(origin, target);
         if (error == null){
             playController.move(origin, target);
             if (playController.isBlocked()){

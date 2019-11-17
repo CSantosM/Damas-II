@@ -47,7 +47,7 @@ public class GameTest {
         System.out.println(game);
         for (int i = 0; i < coordinates.length; i++) {
             assertNull(error);
-            error = game.isCorrect(coordinates[i][0], coordinates[i][1]);
+            error = game.isMovementValid(coordinates[i][0], coordinates[i][1]);
             if (error == null){
                 game.move(coordinates[i][0], coordinates[i][1]);
                 System.out.println(game);
@@ -219,7 +219,7 @@ public class GameTest {
             .build();
 
         assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
-        assertThat(game.isCorrect(origin, target), is(Error.NOT_DIAGONAL));
+        assertThat(game.isMovementValid(origin, target), is(Error.NOT_DIAGONAL));
     }
 
     @Test
@@ -240,7 +240,7 @@ public class GameTest {
             .build();
 
         assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
-        assertThat(game.isCorrect(origin, target), is(nullValue()));
+        assertThat(game.isMovementValid(origin, target), is(nullValue()));
         game.move(origin, target);
         assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
         assertThat(game.getColor(), is(Color.BLACK));
@@ -264,7 +264,7 @@ public class GameTest {
             .build();
 
         assertThat(game.getBoard().getPiece(origin), instanceOf(Draught.class));
-        assertThat(game.isCorrect(origin, target), is(nullValue()));
+        assertThat(game.isMovementValid(origin, target), is(nullValue()));
         game.move(origin, target);
         assertThat(game.getBoard().getPiece(target), instanceOf(Draught.class));
         assertThat(game.getColor(), is(Color.WHITE));

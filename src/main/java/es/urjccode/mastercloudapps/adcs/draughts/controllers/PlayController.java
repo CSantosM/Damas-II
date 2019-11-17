@@ -14,18 +14,18 @@ public class PlayController extends Controller {
 	}
 
 	public void move(Coordinate origin, Coordinate target) {
-		assert this.isCorrect(origin, target) == null;
+		assert this.isMovementValid(origin, target) == null;
 		this.game.move(origin, target);
 		if (this.game.isBlocked()) {
 			this.state.next();
 		}
 	}
 
-	public Error isCorrect(Coordinate origin, Coordinate target){
+	public Error isMovementValid(Coordinate origin, Coordinate target){
 		assert origin != null;
 		assert target != null;
-		return this.game.isCorrect(origin, target);
-	}	
+		return this.game.isMovementValid(origin, target);
+	}
 
 	public Piece getPiece(Coordinate coordinate) {
 		assert coordinate != null;
