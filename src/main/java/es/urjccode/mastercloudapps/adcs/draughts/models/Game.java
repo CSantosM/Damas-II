@@ -74,7 +74,12 @@ public class Game {
 		return this.turn.getColor();
 	}
 
-	public boolean isBlocked() {
+	public boolean isBlocked(){
+		return this.isLooser();
+
+	}
+
+	private boolean isLooser() {
 		return this.board.getPieces(this.turn.getColor()).isEmpty();
 	}
 
