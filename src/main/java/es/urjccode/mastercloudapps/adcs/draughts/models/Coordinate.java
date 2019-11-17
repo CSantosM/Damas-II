@@ -1,5 +1,8 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Coordinate {
 
     private int row;
@@ -39,6 +42,25 @@ public class Coordinate {
         assert coordinate != null;
         assert this.isDiagonal(coordinate);
         return Math.abs(this.row - coordinate.row);
+    }
+
+    List<Coordinate> getAdjacents(){
+        List<Coordinate> adjacentCoords = new ArrayList<Coordinate>();
+        for(int i = 1; i <= 8; i++){
+            if(this.getRow() + i <= Coordinate.UPPER_LIMIT && this.getColumn() + i <= Coordinate.UPPER_LIMIT){
+                adjacentCoords.add(new Coordinate(this.getRow() + i, this.getColumn() + i));
+            }
+            if(this.getRow() - i >= Coordinate.LOWER_LIMIT && this.getColumn() + i <= Coordinate.UPPER_LIMIT){
+                adjacentCoords.add(new Coordinate(this.getRow() - i, this.getColumn() + i));
+            }
+            if(this.getRow() + i <= Coordinate.UPPER_LIMIT && this.getColumn() - i >= Coordinate.LOWER_LIMIT){
+                adjacentCoords.add(new Coordinate(this.getRow() + i, this.getColumn() - i));
+            }
+            if(this.getRow() - i >= Coordinate.LOWER_LIMIT && this.getColumn() - i >= Coordinate.LOWER_LIMIT){
+                adjacentCoords.add(new Coordinate(this.getRow() - i, this.getColumn() - i));
+            }
+        }
+        return adjacentCoords;
     }
 
     Coordinate betweenDiagonal(Coordinate coordinate) {

@@ -75,12 +75,24 @@ public class Game {
 	}
 
 	public boolean isBlocked(){
-		return this.isLooser();
-
+		return this.isLooser() || !this.canMove();
 	}
 
 	private boolean isLooser() {
 		return this.board.getPieces(this.turn.getColor()).isEmpty();
+	}
+
+	private boolean canMove(){
+		for (Piece piece : this.board.getPieces(this.turn.getColor())) {
+			Coordinate pieceCoordinate = this.board.getCoordinate(piece);
+			for (Coordinate adjCoordinate : pieceCoordinate.getAdjacents()) {
+				if(this.isCorrect(pieceCoordinate, adjCoordinate) == null){
+					System.out.println(adjCoordinate);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public int getDimension() {

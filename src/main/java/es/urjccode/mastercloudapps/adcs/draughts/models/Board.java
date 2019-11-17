@@ -50,6 +50,19 @@ class Board implements PieceProvider {
         return this.getSquare(coordinate).getColor();
     }
 
+    Coordinate getCoordinate(Piece piece){
+        assert piece != null;
+        for (int i = 0; i < this.getDimension(); i++) {
+            for (int j = 0; j < this.getDimension(); j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                if (this.getPiece(coordinate) == piece){
+                    return coordinate;
+                }
+            }
+        }
+        return null;
+	}
+
     List<Piece> getPieces(Color color) {
         List<Piece> pieces = new ArrayList<Piece>();
         for (int i = 0; i < this.getDimension(); i++) {
