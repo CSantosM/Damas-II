@@ -43,13 +43,12 @@ public class Game {
 
 	public void move(Coordinate origin, Coordinate target) {
 		assert this.isCorrect(origin, target) == null;
-		if (origin.diagonalDistance(target) == this.board.getPiece(origin).getMaxDistance()) {
-			this.board.remove(origin.betweenDiagonal(target));
-		}
+		this.removePieceOnWay(origin, target);
 		this.board.move(origin, target);
-		if (this.board.getPiece(target).isLastRow(target)){
+		Piece piece = this.board.getPiece(target);
+		if (piece.isLastRow(target)){
 			this.board.remove(target);
-			this.board.put(target, new Draught(Color.WHITE));
+			this.board.put(target, new Draught(piece.getColor()));
 		}
 		this.turn.change();
 	}
@@ -97,4 +96,12 @@ public class Game {
 		return this.board + "\n" + this.turn;
 	}
 
+	private void removePieceOnWay(Coordinate origin, Coordinate target){
+		for (Coordinate coordinate : origin.getCoordinatesBetween(target)) {
+			if (this.board.getPiece(coordinate) != null){
+				this.board.remove(coordinate);
+				break;
+			}
+		}
+	}
 }

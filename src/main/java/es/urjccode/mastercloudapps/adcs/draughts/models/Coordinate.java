@@ -55,6 +55,27 @@ public class Coordinate {
         return new Coordinate(this.row + rowShift, this.column + columnShift);
     }
 
+    List<Coordinate> getCoordinatesBetween(Coordinate target){
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        if(this.diagonalDistance(target) == 2){
+            coordinates.add(this.betweenDiagonal(target));
+            return coordinates;
+        }else if(this.diagonalDistance(target) > 2) {
+            Coordinate newOrigin;
+
+            if (this.getRow() > target.getRow()){
+                newOrigin = new Coordinate(this.getRow() - 1, Math.abs(this.getColumn() - 1));
+            }
+            else {
+                newOrigin = new Coordinate(this.getRow() + 1, this.getColumn() + 1);
+            }
+            coordinates.add(newOrigin);
+            coordinates.addAll(newOrigin.getCoordinatesBetween(target));
+            return coordinates;
+        }
+        return coordinates;
+    }
+
     boolean isBlack() {
         return (this.row + this.column) % 2 != 0;
     }

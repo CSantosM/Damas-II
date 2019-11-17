@@ -28,8 +28,4 @@ public class Pawn extends Piece {
         return null;
     }
 
-    int getMaxDistance(){
-        return Pawn.MAX_DISTANCE;
-    }
-
 }

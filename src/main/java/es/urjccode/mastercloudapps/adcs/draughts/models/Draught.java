@@ -1,8 +1,8 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-class Draught extends Piece {
+import java.util.List;
 
-    private static final int MAX_DISTANCE = 8;
+class Draught extends Piece {
 
     Draught(Color color) {
         super(color);
@@ -14,11 +14,20 @@ class Draught extends Piece {
          if ( error != null) {
             return error;
         }
+        List<Coordinate> coordinateList = origin.getCoordinatesBetween(target);
+        if (this.getPiecesNumberOnWay(coordinateList, pieceProvider) > 1 ){
+            return Error.MORE_THAN_ONE_PIECE;
+        }
         return null;
     }
 
-    int getMaxDistance(){
-        return Draught.MAX_DISTANCE;
+    private int getPiecesNumberOnWay(List<Coordinate> coordinateList, PieceProvider pieceProvider){
+        int piecesNumber = 0;
+        for (Coordinate coordinate : coordinateList) {
+            if (pieceProvider.getPiece(coordinate) != null) {
+                piecesNumber++;
+            }
+        }
+        return piecesNumber;
     }
-
 }
