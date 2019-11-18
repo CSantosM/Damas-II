@@ -21,15 +21,15 @@ public class Coordinate {
             int value = Integer.parseInt(format);
             int row = value / 10 - 1;
             int column = value % 10 - 1;
-            if (row < Coordinate.LOWER_LIMIT || Coordinate.UPPER_LIMIT < row 
+            if (row < Coordinate.LOWER_LIMIT || Coordinate.UPPER_LIMIT < row
                 || column < Coordinate.LOWER_LIMIT || Coordinate.UPPER_LIMIT < column){
                 return null;
             }
             return new Coordinate(row, column);
-            
+
         } catch(Exception ex){
             return null;
-        } 
+        }
     }
 
     boolean isDiagonal(Coordinate coordinate) {
@@ -47,17 +47,17 @@ public class Coordinate {
     List<Coordinate> getAdjacents(){
         List<Coordinate> adjacentCoords = new ArrayList<Coordinate>();
         for(int i = 1; i <= 8; i++){
-            if(this.getRow() + i <= Coordinate.UPPER_LIMIT && this.getColumn() + i <= Coordinate.UPPER_LIMIT){
-                adjacentCoords.add(new Coordinate(this.getRow() + i, this.getColumn() + i));
+            if(this.isAdjacentBottomRightValid(i)){
+                adjacentCoords.add(this.getAdjacentBottomRightCoordinate(i));
             }
-            if(this.getRow() - i >= Coordinate.LOWER_LIMIT && this.getColumn() + i <= Coordinate.UPPER_LIMIT){
-                adjacentCoords.add(new Coordinate(this.getRow() - i, this.getColumn() + i));
+            if(this.isAdjacentTopRightValid(i)){
+                adjacentCoords.add(this.getAdjacentTopRightCoordinate(i));
             }
-            if(this.getRow() + i <= Coordinate.UPPER_LIMIT && this.getColumn() - i >= Coordinate.LOWER_LIMIT){
-                adjacentCoords.add(new Coordinate(this.getRow() + i, this.getColumn() - i));
+            if(this.isAdjacentBottomLeftValid(i)){
+                adjacentCoords.add(this.getAdjacentBottomLeftCoordinate(i));
             }
-            if(this.getRow() - i >= Coordinate.LOWER_LIMIT && this.getColumn() - i >= Coordinate.LOWER_LIMIT){
-                adjacentCoords.add(new Coordinate(this.getRow() - i, this.getColumn() - i));
+            if(this.isAdjacentTopLeftValid(i)){
+                adjacentCoords.add(this.getAdjacentTopLeftCoordinate(i));
             }
         }
         return adjacentCoords;
@@ -138,6 +138,38 @@ public class Coordinate {
         if (row != other.row)
             return false;
         return true;
+    }
+
+    private boolean isAdjacentBottomRightValid(int increment){
+        return this.getRow() + increment <= Coordinate.UPPER_LIMIT && this.getColumn() + increment <= Coordinate.UPPER_LIMIT;
+    }
+
+    private boolean isAdjacentTopRightValid(int increment){
+        return this.getRow() - increment >= Coordinate.LOWER_LIMIT && this.getColumn() + increment <= Coordinate.UPPER_LIMIT;
+    }
+
+    private boolean isAdjacentBottomLeftValid(int increment){
+        return this.getRow() + increment <= Coordinate.UPPER_LIMIT && this.getColumn() - increment >= Coordinate.LOWER_LIMIT;
+    }
+
+    private boolean isAdjacentTopLeftValid(int increment){
+        return this.getRow() - increment >= Coordinate.LOWER_LIMIT && this.getColumn() - increment >= Coordinate.LOWER_LIMIT;
+    }
+
+    private Coordinate getAdjacentBottomRightCoordinate(int increment){
+        return new Coordinate(this.getRow() + increment, this.getColumn() + increment);
+    }
+
+    private Coordinate getAdjacentTopRightCoordinate(int increment){
+        return new Coordinate(this.getRow() - increment, this.getColumn() + increment);
+    }
+
+    private Coordinate getAdjacentBottomLeftCoordinate(int increment){
+        return new Coordinate(this.getRow() + increment, this.getColumn() - increment);
+    }
+
+    private Coordinate getAdjacentTopLeftCoordinate(int increment){
+        return new Coordinate(this.getRow() - increment, this.getColumn() - increment);
     }
 
 }
